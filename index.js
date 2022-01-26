@@ -6,27 +6,27 @@ fetch(api)
 .then(data => displayEvents(data.events))
 .catch(error => console.log(error))
 
-const card = document.querySelector('.card')
+const main = document.querySelector('.main-container')
 
 const displayEvents = (eventData) => {
     let eventHtml = ''
 
-    eventData.map((item) => {
+    eventData.map((item, index) => {
         return (
             eventHtml += `
-                <div class="left-content">
-                    <h5>Name: ${item.name.text}</h5>
-                    <p>Description: ${item.description.text}</p>
-                    <p>Date: ${item.start.local}</p>
+            <div class="card" data-index="${index}"> 
+                <div class="event-image">
+                    <img src=${item.logo.original.url} alt="event-image" />
                 </div>
-                <div class="right-content">
-                    <img src=${item.logo.url} alt="event-image" />
+                <div class="event-content">
+                    <h3>${item.name.text}</h3>
+                    <p>${item.start.local}</p>
+                    <p>${item.description.text}</p>
                 </div>
+            </div>
             `
         )
     })
-    card.innerHTML = eventHtml;
-
-
+    main.innerHTML = eventHtml;
 }
 
